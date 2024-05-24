@@ -81,9 +81,7 @@ class SharedPereferenceService {
     }
   }
 
-
-
-   Future<void> cacheUserProfile(User user) async {
+  Future<void> cacheUserProfile(User user) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     String userJson = jsonEncode(user.toJson());
     await prefs.setString('cachedUserProfile', userJson);
@@ -93,7 +91,8 @@ class SharedPereferenceService {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     String? userJson = prefs.getString('cachedUserProfile');
     if (userJson != null) {
-      return User.fromJson(jsonDecode(userJson));
+      var data = jsonDecode(userJson);
+      return User.fromJson(data);
     } else {
       return null;
     }

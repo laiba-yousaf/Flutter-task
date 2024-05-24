@@ -22,7 +22,11 @@ class MyPostView extends StackedView<MyPostViewModel> {
   ) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Posts'),
+        title: const Text(
+          'Posts',
+          style: TextStyle(color: kcVeryLightGrey),
+        ),
+        centerTitle: true,
         backgroundColor: kcPrimaryColor,
       ),
       body: FutureBuilder<List<Post>>(

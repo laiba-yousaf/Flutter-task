@@ -23,7 +23,11 @@ class MyAlbumbView extends StackedView<MyAlbumbViewModel> {
   ) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Albums'),
+        title: const Text(
+          'Albums',
+          style: TextStyle(color: kcVeryLightGrey),
+        ),
+        centerTitle: true,
         backgroundColor: kcPrimaryColor,
       ),
       body: FutureBuilder<List<Album>>(
@@ -50,20 +54,23 @@ class MyAlbumbView extends StackedView<MyAlbumbViewModel> {
                       viewModel.navigationToAlbumDetail(album.id);
                     },
                     child: Container(
+                      padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0),
                         color: kcLightGrey,
                       ),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Icon(Icons.folder, size: 50.0),
                           verticalSpaceSmall,
+                          const Center(child: Icon(Icons.folder, size: 50.0)),
                           Text(
                             album.title,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
-                                fontSize: 16.0, fontWeight: FontWeight.bold),
+                                fontSize: 16.0, fontWeight: FontWeight.w500),
                           ),
                         ],
                       ),

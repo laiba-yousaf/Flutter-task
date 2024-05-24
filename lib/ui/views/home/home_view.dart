@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:stacked/stacked.dart';
 import 'package:task_flutter/ui/common/app_colors.dart';
 import 'package:task_flutter/ui/common/ui_helpers.dart';
@@ -22,7 +21,11 @@ class HomeView extends StackedView<HomeViewModel> {
   ) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Albums & Posts App'),
+        title: const Text(
+          'Albums & Posts App',
+          style: TextStyle(color: kcVeryLightGrey),
+        ),
+        centerTitle: true,
         backgroundColor: kcPrimaryColor,
       ),
       body: viewModel.isLoading
@@ -37,26 +40,27 @@ class HomeView extends StackedView<HomeViewModel> {
                       const Center(
                         child: CircleAvatar(
                           radius: 40,
-                          child: Icon(Icons.person),
+                          child: Icon(
+                            Icons.person,
+                            size: 60,
+                          ),
                         ),
                       ),
                       verticalSpaceMedium,
-                      Expanded(
-                        child: ListView(
-                          children: [
-                            viewModel.buildDetailTile(
-                                'Name', viewModel.user!.name),
-                            verticalSpaceSmall,
-                            viewModel.buildDetailTile(
-                                'Username', viewModel.user!.username),
-                            verticalSpaceSmall,
-                            viewModel.buildDetailTile(
-                                'Email', viewModel.user!.email),
-                            verticalSpaceSmall,
-                            viewModel.buildDetailTile('Address',
-                                '${viewModel.user!.address.street}, ${viewModel.user!.address.suite}, ${viewModel.user!.address.city}, ${viewModel.user!.address.zipcode}'),
-                          ],
-                        ),
+                      Column(
+                        children: [
+                          viewModel.buildDetailTile(
+                              'Name', viewModel.user!.name),
+                          verticalSpaceSmall,
+                          viewModel.buildDetailTile(
+                              'Username', viewModel.user!.username),
+                          verticalSpaceSmall,
+                          viewModel.buildDetailTile(
+                              'Email', viewModel.user!.email),
+                          verticalSpaceSmall,
+                          viewModel.buildDetailTile('Address',
+                              '${viewModel.user!.address?.street}, ${viewModel.user!.address?.suite}, ${viewModel.user!.address?.city}, ${viewModel.user!.address?.zipcode}'),
+                        ],
                       ),
                     ],
                   ),

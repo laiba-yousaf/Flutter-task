@@ -21,6 +21,15 @@ class Address {
       zipcode: json['zipcode'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'street': street,
+      'suite': suite,
+      'city': city,
+      'zipcode': zipcode,
+    };
+  }
 }
 
 class User {
@@ -28,7 +37,7 @@ class User {
   final String name;
   final String username;
   final String email;
-  final Address address;
+  final Address? address;
   // final LatLng? location; // Add this line for location
   File? avatar;
 
@@ -48,18 +57,20 @@ class User {
       name: json['name'],
       username: json['username'],
       email: json['email'],
-      address: Address.fromJson(json['address']),
+      address:
+          json['address'] != null ? Address.fromJson(json['address']) : null,
       // avatar: json['avatar'],
       // location: json['location']
     );
   }
 
-   Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'id': id,
       'name': name,
       'username': username,
       'email': email,
+      "address": address?.toJson()
     };
   }
 }

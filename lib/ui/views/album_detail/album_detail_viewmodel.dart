@@ -20,7 +20,7 @@ class AlbumDetailViewModel extends BaseViewModel {
       setBusy(true);
 
       var connectivityResult = await Connectivity().checkConnectivity();
-      if (connectivityResult == ConnectivityResult.none) {
+      if (connectivityResult.contains(ConnectivityResult.none)) {
         // No internet connection, fetch cached photos
         final cachedPhotos = await  _sharedPreferencesHelper.getCachedPhotos(albumId);
         if (cachedPhotos.isNotEmpty) {

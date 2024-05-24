@@ -26,7 +26,7 @@ class MyAlbumbViewModel extends BaseViewModel {
       _isLoading = true;
       notifyListeners();
       var connectivityResult = await Connectivity().checkConnectivity();
-      if (connectivityResult == ConnectivityResult.none) {
+      if (connectivityResult.contains(ConnectivityResult.none)) {
         _album = await _sharedPreferencesHelper.getCachedAlbums();
       } else {
         _album = await _albumService.fetchAlbums(1);

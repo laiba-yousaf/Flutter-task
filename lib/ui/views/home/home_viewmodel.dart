@@ -18,27 +18,24 @@ class HomeViewModel extends BaseViewModel {
   User? get user => _user;
   bool get isLoading => _isLoading;
 
- Future<void> fetchUser() async {
-  
+  Future<void> fetchUser() async {
     _isLoading = true;
     notifyListeners();
 
     try {
-      final List<ConnectivityResult> connectivityResult = await (Connectivity().checkConnectivity());
-     if (connectivityResult == ConnectivityResult.none) {
-
+      final List<ConnectivityResult> connectivityResult =
+          await (Connectivity().checkConnectivity());
+      if (connectivityResult.contains(ConnectivityResult.none)) {
         _user = await _sharedPreferencesHelper.getCachedUserProfile();
         if (_user == null) {
           throw Exception("No user profile available offline");
         }
       } else {
-        _user = await _profileService.fetchUserProfile();     
+        _user = await _profileService.fetchUserProfile();
         await _sharedPreferencesHelper.cacheUserProfile(_user!);
       }
-    }catch (e) {
-
+    } catch (e) {
       print(e);
-
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -46,10 +43,37 @@ class HomeViewModel extends BaseViewModel {
   }
 
   Widget buildDetailTile(String label, String value) {
-    return ListTile(
-      tileColor: kcCardColor,
-      title: Text(label),
-      subtitle: Text(value),
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.black,
+          width: 1.0,
+        ),
+        borderRadius: BorderRadius.circular(8.0),
+        color: kcCardColor.withOpacity(0.4),
+      ),
+      padding: const EdgeInsets.all(5.0),
+      child: Row(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                label,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                value,
+                style: const TextStyle(
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
